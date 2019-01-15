@@ -1,0 +1,9 @@
+# Home directories
+/homes  /etc/auto.homes
+
+# All other available shares
+/volume /etc/auto.vols
+
+# Include automount all exported file systems for given host
+/host /etc/auto.net
+/net /etc/auto.net

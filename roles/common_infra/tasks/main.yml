@@ -1,0 +1,7 @@
+---
+
+- name: Include autofs/nfs
+  include: nfs.yml
+
+- name: Include autofs/nfs
+  include: build_mounts.yml

@@ -1,0 +1,3 @@
+---
+- name: Include BAAS configs
+  include: baas_configs.yml

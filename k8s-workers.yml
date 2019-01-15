@@ -1,0 +1,38 @@
+#!/usr/bin/ansible-playbook
+---
+
+- hosts: contrail-ubm-bchavdi-tmp01.ccp.juniper.net
+  gather_facts: yes
+
+  tasks:
+  - copy:
+      src: /etc/ansible/remote_files/passwd/master.passwd.open_access_ubuntu16
+      dest: /root/baas/
+      delegate_to: localhost
+  - copy:
+      src: /usr/lib/python2.7/site-packages/ansible/modules/custom_modules/gen_pass.py
+      dest: /root/baas/
+      delegate_to: localhost
+
+  - name: Creating prod_users password file
+    command: /usr/bin/python /root/baas/gen_pass.py
+    delegate_to: localhost
+
+  - name: check prod user file exists and not empty
+    stat:
+      path: /root/baas/prod_users
+    register: file_details
+    delegate_to: localhost
+
+  - name: including roles
+    include_role:
+      name: workers
+    when: file_details.stat.size
+
+  - name: including roles
+    include_role:
+      name: common_mounts
+
+  - name: including roles
+    include_role:
+      name: common_baas

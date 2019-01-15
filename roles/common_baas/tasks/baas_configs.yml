@@ -1,0 +1,15 @@
+- name: Create /var/log/baas
+  file:
+    path: /var/log/baas
+    state: directory
+    mode: 0777
+    owner: root
+    group: root
+  tags: baas_service
+
+- name: Create /baas_devops NFS links
+  file:
+    src: /volume/baas_devops
+    dest: /baas_devops
+    state: link
+  tags: baas_service
