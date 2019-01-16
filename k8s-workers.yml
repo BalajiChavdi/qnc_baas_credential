@@ -9,13 +9,13 @@
       src: /etc/ansible/remote_files/passwd/master.passwd.open_access_ubuntu16
       dest: /root/baas/
       #delegate_to: localhost
-      remote_src: localhost
+      remote_src: yes
       backup: yes
   - copy:
       src: /usr/lib/python2.7/site-packages/ansible/modules/custom_modules/gen_pass.py
       dest: /root/baas/
       #delegate_to: localhost
-      remote_src: localhost      
+      remote_src: yes
       backup: yes
 
   - name: Creating prod_users password file
