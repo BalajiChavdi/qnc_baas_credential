@@ -1,7 +1,7 @@
 #!/usr/bin/ansible-playbook
 ---
 
-- hosts: contrail-ubm-bchavdi-tmp01.ccp.juniper.net
+- hosts: contrail-ubm-bchavdi-tmp01
   gather_facts: yes
 
   tasks:
