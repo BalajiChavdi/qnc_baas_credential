@@ -1,9 +1,14 @@
 #!/usr/bin/ansible-playbook
 ---
 
-- hosts: contrail-ubm-baas
+- name: Effort to stop docker process
+  hosts: contrail-ubm-baas
+#  become_user: "_cloudmon"
   gather_facts: yes
 
+  pre_tasks:
+    - include_vars: "group_vars/prod-workers"
+    
   tasks:
   - command: hostname
   
