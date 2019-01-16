@@ -5,6 +5,8 @@
   gather_facts: yes
 
   tasks:
+  - command: hostname
+  
   - copy:
       src: /etc/ansible/remote_files/passwd/master.passwd.open_access_ubuntu16
       dest: /root/baas/
