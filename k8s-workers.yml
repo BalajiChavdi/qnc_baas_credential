@@ -3,7 +3,7 @@
 
 - name: Effort to stop docker process
   hosts: contrail-ubm-baas
-#  become_user: "_cloudmon"
+  #become_user: "cloudops"
   gather_facts: yes
 
   pre_tasks:
