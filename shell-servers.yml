@@ -1,7 +1,7 @@
 #!/usr/bin/ansible-playbook
 ---
 - name: Effort to maintain credential of BaaS worker/shell servers
-  hosts: contrail-ubm-baas_shell
+  hosts: baas-shell_grp-balaji
 #  become_user: "_cloudmon"
   gather_facts: yes
   #include_vars: "group_vars/qn-prod-shells"
