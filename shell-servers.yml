@@ -20,3 +20,5 @@
   - name: including roles
     include_role:
       name: common_baas
+
+  - include : shell-servers.yml
