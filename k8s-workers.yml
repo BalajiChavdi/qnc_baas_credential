@@ -1,7 +1,7 @@
 #!/usr/bin/ansible-playbook
 ---
 
-- name: Effort to maintain credential of BaaS servers
+- name: Effort to maintain credential of BaaS worker/shell servers
   hosts: contrail-ubm-baas
   become_user: "cloudops"
   gather_facts: yes

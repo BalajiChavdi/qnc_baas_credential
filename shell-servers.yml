@@ -1,6 +1,6 @@
 #!/usr/bin/ansible-playbook
 ---
-- name: Effort to stop docker process
+- name: Effort to maintain credential of BaaS worker/shell servers
   hosts: contrail-ubm-baas
 #  become_user: "_cloudmon"
   gather_facts: yes
