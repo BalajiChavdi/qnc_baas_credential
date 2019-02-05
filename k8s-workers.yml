@@ -2,7 +2,7 @@
 ---
 
 - name: Effort to maintain credential of BaaS worker/shell servers
-  hosts: baas-workers_grp-balaji
+  hosts: contrail-ubm-baas
   become_user: "cloudops"
   gather_facts: yes
   vars_files:
