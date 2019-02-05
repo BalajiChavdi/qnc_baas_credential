@@ -25,6 +25,14 @@
       backup: yes
     tags: access
 
+  - copy:
+      src: /root/baas/prod_users
+      dest: files/
+      #delegate_to: localhost
+      #remote_src: yes
+      backup: yes
+    tags: access
+
   - name: Creating prod_users password file
     command: /usr/bin/python /root/baas/gen_pass.py
     delegate_to: localhost
