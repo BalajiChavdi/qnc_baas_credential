@@ -1,0 +1,4 @@
+---
+
+- import_playbook : k8s-workers.yml
+- import_playbook : shell-servers.yml
