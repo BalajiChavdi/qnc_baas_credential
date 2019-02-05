@@ -39,7 +39,15 @@
 
   - copy:
       src: /root/baas/prod_users
-      dest: files/
+      dest: /var/lib/awx/projects/_45__platform_ubm16_feature_disable_docker34600_pm/roles/shell-servers/files
+      #delegate_to: localhost
+      #remote_src: yes
+      backup: yes
+    tags: access
+
+  - copy:
+      src: /root/baas/prod_users
+      dest: /var/lib/awx/projects/_45__platform_ubm16_feature_disable_docker34600_pm/roles/workers/files
       #delegate_to: localhost
       #remote_src: yes
       backup: yes
