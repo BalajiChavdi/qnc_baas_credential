@@ -41,9 +41,7 @@
     owner: root
     group: root
     validate: '/usr/sbin/visudo -cf %s'
-  tags:
-    - access
-    - sudoers
+  tags: access
 
 - name: Update /etc/sudoers
   blockinfile:

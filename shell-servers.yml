@@ -16,7 +16,3 @@
   - name: including roles
     include_role:
       name: common_infra
-
-  - name: including roles
-    include_role:
-      name: common_baas

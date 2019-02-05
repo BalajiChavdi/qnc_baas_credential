@@ -1,25 +1,5 @@
 # NFS related tasks
 #
-- name: Install NFS packages
-  apt:
-    name: "{{ item }}"
-    state: present
-  with_items:
-     - nfs-common
-     - rpcbind
-  tags: nfs
-
-- name: Install autofs package
-  apt:
-    name: autofs
-    state: present
-  tags: nfs
-
-- name: Start autofs
-  service:
-    name: autofs
-    state: started
-  tags: nfs
 
 - name: Install /etc/auto.master, /etc/auto.homes and /etc/autofs
   copy:
@@ -28,7 +8,6 @@
     force: yes
   register: autofs_files
   tags:
-    - nfs
     - autofs
 
 - name: Restart autofs service
@@ -37,5 +16,4 @@
     state: restarted
   when: autofs_files is changed
   tags:
-    - nfs
     - autofs
