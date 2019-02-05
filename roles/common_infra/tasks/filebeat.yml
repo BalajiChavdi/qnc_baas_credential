@@ -1,0 +1,48 @@
+- name: Add Elastic Public Signing Key
+  apt_key:
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    state: present
+  tags: filebeat
+
+- name: Install apt-transport-https package
+  apt:
+    name: apt-transport-https
+    state: present
+  tags: filebeat
+
+- name: Create /etc/apt/sources.list.d/elastic-6.x.list
+  copy:
+    src: files/elastic-6.x.list
+    dest: /etc/apt/sources.list.d/elastic-6.x.list
+    owner: root
+    group: root
+    mode: 0644
+  tags: filebeat
+
+- name: Install filebeat package
+  apt:
+    update_cache: yes
+    name: filebeat
+    state: present
+  tags: filebeat
+
+- name: Copy filebeat.yml file
+  copy:
+    src: files/filebeat.yml
+    dest: /etc/filebeat/filebeat.yml
+    owner: root
+    group: root
+    mode: 0600
+  register: filebeat_config
+  tags: filebeat
+
+- name: Restart filebeat
+  service:
+    name: filebeat
+    state: restarted
+  when: filebeat_config is changed
+  tags: filebeat
+
+- name: Configure filebeat to start automatically
+  command: update-rc.d filebeat defaults 95 10
+  tags: filebeat

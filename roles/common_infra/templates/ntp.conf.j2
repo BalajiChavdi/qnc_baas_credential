@@ -1,0 +1,14 @@
+# This file was copied from /etc/ntp.conf with the server options changed
+# to reflect the information sent by the DHCP server.  Any changes made
+# here will be lost at the next DHCP event.  Edit /etc/ntp.conf instead.
+
+# NTP server entries received from DHCP server
+{% for item in ntp_servers %}
+server {{ item }} iburst
+{% endfor %}
+
+driftfile /var/lib/ntp/drift
+restrict 127.0.0.1
+restrict -6 ::1
+includefile /etc/ntp/crypto/pw
+keys /etc/ntp/keys

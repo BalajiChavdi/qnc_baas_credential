@@ -9,8 +9,6 @@ sshusers:
   - _devops
   - _cd-builder
   - apfm
-  - cloudops
-  - pf9
   - bchavdi
 
 sudo_users:

@@ -1,0 +1,4 @@
+{% for item in dns_servers %}
+nameserver {{ item }}
+{% endfor %}
+search {{ dns_search_domains | join(" ") }}

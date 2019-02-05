@@ -1,0 +1,35 @@
+# Generate new password hash with
+# python -c "from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())"
+#
+- name: Create apfm user account for Appformix monitoring
+  user:
+    name: apfm
+    password: $6$DXcMoYzX$oPxfFj0P5y3/jh/qui0qnn24DEV8phFjomb9kGopqdh/PnDBWbBSAmvnGpmLdn9kPTuiXwhCyy6I9cae37OkZ.
+    update_password: always
+    home: /home/apfm
+    groups: sudo
+    shell: /bin/bash
+  tags:
+    - appformix_account
+
+- name: Update root account password
+  user:
+    name: root
+    update_password: always
+    password: $6$rounds=656000$TeneI.dKRW/Bnk5j$xHlTHm9Et1Jb305eUbxEXKSU5RD3zYuCRgvJoAmdEYJ93ii0rT4T4yzpJYVCA/kNFyjLxPYQ/6w176.RhUIpX1
+  tags:
+    - root_password
+
+- name: Create cloudops account
+  user:
+    name: cloudops
+    # vkRZ8cQ7h8TV
+    # n%X4Hmjx591K@X@Ufk2I
+    password: $6$rounds=656000$fsvecztQEQfYHOVv$zol8c1OTgWfkORvkbgkYO9lBWhnc7NG/aWJnJLR.sHsFWhJMoIe6z4unsLEcwQ8nSUcyskV/D3LS4zsjVS3Nq0
+    update_password: always
+    home: /home/cloudops
+    groups: sudo
+    shell: /bin/bash
+    uid: 1002
+  tags:
+    - cloudops_account

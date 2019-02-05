@@ -1,0 +1,28 @@
+---
+
+window_managers:
+  - blackbox
+  - fluxbox
+  - twm
+  - fvwm
+  - screen
+  - tmux
+  - tightvncserver
+  - vnc4server
+  - vim
+
+shell_misc_pkgs:
+  - man-db
+  - curl
+  - tree
+  - vim
+  - emacs
+
+sudo_users:
+  - cloudops
+  - apfm
+  - _devops
+  - _ecbuilder
+  - noormohamed
+  - fai
+  - bchavdi

@@ -1,7 +1,21 @@
 ---
+- name:  Include DNS configs
+  include: dns.yml
+
+- name:  Include NTP configs
+  include: ntp.yml
+
+- name: Include misc packages
+  include: packages.yml
+
+- name: Include apfm and root accounts
+  include: accounts.yml
 
 - name: Include autofs/nfs
   include: nfs.yml
+
+- name: Include install filebeat agent
+  include: filebeat.yml
 
 - name: Include autofs/nfs
   include: build_mounts.yml
