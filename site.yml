@@ -1,3 +1,4 @@
+#!/usr/bin/ansible-playbook
 ---
 
 - import_playbook : k8s-workers.yml
