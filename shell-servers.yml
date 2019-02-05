@@ -5,6 +5,8 @@
 #  become_user: "_cloudmon"
   gather_facts: yes
   #include_vars: "group_vars/qn-prod-shells"
+  vars_files:
+    - "group_vars/qn-prod-shells"
 
   tasks:
   - command: hostname
@@ -20,5 +22,3 @@
   - name: including roles
     include_role:
       name: common_baas
-
-  - include : shell-servers.yml

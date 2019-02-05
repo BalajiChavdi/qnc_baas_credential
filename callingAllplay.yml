@@ -1,6 +1,12 @@
 #!/usr/bin/ansible-playbook
 ---
-#- import_playbook : k8s-workers.yml
-#- import_playbook : shell-servers.yml
-- include : k8s-workers.yml
-- include : shell-servers.yml
+
+# - include : k8s-workers.yml
+# - include : shell-servers.yml
+
+
+- name: including plays
+  include: k8s-workers.yml
+
+- name: including plays
+  include: shell-servers.yml
