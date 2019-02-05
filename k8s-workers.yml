@@ -41,14 +41,11 @@
     include_role:
       name: workers
     when: file_details.stat.size
-    tags: access
 
   - name: including roles
     include_role:
       name: common_infra
-    tags: access
 
   - name: including roles
     include_role:
       name: common_baas
-    tags: access
