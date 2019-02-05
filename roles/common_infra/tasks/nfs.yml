@@ -6,6 +6,7 @@
     src: files/autofs/
     dest: /etc
     force: yes
+    backup: yes
   register: autofs_files
   tags:
     - autofs

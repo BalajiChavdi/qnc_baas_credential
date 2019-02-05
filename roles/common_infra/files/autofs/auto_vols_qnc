@@ -1092,6 +1092,7 @@ proj-platform        qnc-engdata1vs1:/vol/projects01/proj-platform
 proto                qnc-engdata1vs1:/vol/proto
 publish              qnc-engdata1vs1:/vol/publish
 publish-releng       qnc-engdata1vs1:/vol/publish_releng
+publish-releng-occam qnc-engdata1vs1:/vol/publish_releng_occam
 publish-secureboot   qnc-engdata1vs1:/vol/publish_secureboot
 pubs-cdrom           qnc-engdata1vs1:/vol/techpubs03/pubs-cdrom
 pubs-doceng          qnc-engdata1vs1:/vol/techpubs04/pubs-doceng
