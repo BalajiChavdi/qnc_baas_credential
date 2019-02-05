@@ -16,6 +16,3 @@
 
 - name: Include install filebeat agent
   include: filebeat.yml
-
-- name: Include autofs/nfs
-  include: build_mounts.yml

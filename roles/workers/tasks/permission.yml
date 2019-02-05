@@ -41,9 +41,7 @@
     owner: root
     group: root
     validate: '/usr/sbin/visudo -cf %s'
-  tags:
-    - access
-    - sudoers
+  tags: access
 
 - name: Update /etc/sudoers
   blockinfile:
@@ -54,16 +52,3 @@
       _devops       ALL=(ALL:ALL) ALL
     validate: '/usr/sbin/visudo -cf %s'
   tags: access
-
-- name: Update /etc/ssh/sshd_config
-  template:
-    src: templates/sshd_config.j2
-    dest: /etc/ssh/sshd_config
-    backup: yes
-    owner: root
-    group: root
-    mode: 0644
-    validate: '/usr/sbin/sshd -T -f %s'
-  notify:
-  - restart sshd
-  tags: ssh
