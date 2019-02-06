@@ -1,7 +1,5 @@
 #!/usr/bin/ansible-playbook
 ---
-- command: hostname
-
 - name: "Pre tasks in local"
   hosts: localhost
   connection: "local"
