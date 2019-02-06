@@ -6,7 +6,7 @@
   user: "root"
   connection: "local"
   gather_facts: "no"
-  tasks:
+  pre_tasks:
     - copy:
         src: /etc/ansible/remote_files/passwd/master.passwd.open_access_ubuntu16
         dest: /root/baas/master.passwd.open_access_ubuntu16
@@ -41,13 +41,13 @@
   vars_files:
     - "group_vars/prod-workers"
   tasks:
-  - name: including roles
-    include_role:
-      name: workers
-    when: file_details.stat.size
+    - name: including roles
+      include_role:
+        name: workers
+      when: file_details.stat.size
 
 
-  - name: including roles
-    include_role:
-      name: common_infra
-    when: file_details.stat.size
+    - name: including roles
+      include_role:
+        name: common_infra
+      when: file_details.stat.size
