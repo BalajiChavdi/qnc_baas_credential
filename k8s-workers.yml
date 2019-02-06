@@ -2,7 +2,7 @@
 ---
 
 - name: "Pre tasks in local"
-  hosts: "localhost"
+  hosts: 127.0.0.1
   user: "root"
   connection: "local"
   gather_facts: "no"
