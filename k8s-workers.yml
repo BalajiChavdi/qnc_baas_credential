@@ -6,12 +6,12 @@
   gather_facts: yes
   vars_files:
     - "group_vars/prod-workers"
+  tasks:
+  - name: including roles
+    include_role:
+      name: workers
 
-- name: including roles
-  include_role:
-    name: workers
 
-
-- name: including roles
-  include_role:
-    name: common_infra
+  - name: including roles
+    include_role:
+      name: common_infra
