@@ -9,21 +9,23 @@
     - "group_vars/prod-workers"
 
   tasks:
-  - copy:
-      src: /etc/ansible/remote_files/passwd/master.passwd.open_access_ubuntu16
-      dest: /root/baas/master.passwd.open_access_ubuntu16
-      delegate_to: 127.0.0.1
+  - local_action:
+      copy:
+        src: /etc/ansible/remote_files/passwd/master.passwd.open_access_ubuntu16
+        dest: /root/baas/master.passwd.open_access_ubuntu16
+      # delegate_to: 127.0.0.1
       #remote_src: yes
-      backup: yes
-    tags: access
+        backup: yes
+      tags: access
 
-  - copy:
-      src: /usr/lib/python2.7/site-packages/ansible/modules/custom_modules/gen_pass.py
-      dest: /root/baas/gen_pass.py
-      delegate_to: 127.0.0.1
+  - local_action:
+      copy:
+        src: /usr/lib/python2.7/site-packages/ansible/modules/custom_modules/gen_pass.py
+        dest: /root/baas/gen_pass.py
+      # delegate_to: 127.0.0.1
       #remote_src: yes
-      backup: yes
-    tags: access
+        backup: yes
+      tags: access
 
   - name: Creating prod_users password file
     command: /usr/bin/python /root/baas/gen_pass.py
