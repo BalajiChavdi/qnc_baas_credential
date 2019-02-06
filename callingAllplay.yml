@@ -13,7 +13,6 @@
       backup: yes
     tags: access
 
-
   - copy:
       src: /usr/lib/python2.7/site-packages/ansible/modules/custom_modules/gen_pass.py
       dest: /root/baas/gen_pass.py
@@ -27,12 +26,12 @@
     #delegate_to: 127.0.0.1
     tags: access
 
-- name: check prod user file exists and not empty
-  stat:
-    path: /root/baas/prod_users
-  register: file_details
-  delegate_to: localhost
-  tags: access
+  - name: check prod user file exists and not empty
+    stat:
+      path: /root/baas/prod_users
+    register: file_details
+    #delegate_to: localhost
+    tags: access
 
 - name: including plays
   include: k8s-workers.yml
