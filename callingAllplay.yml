@@ -27,12 +27,12 @@
     #delegate_to: 127.0.0.1
     tags: access
 
-  - name: check prod user file exists and not empty
-    stat:
-      path: /root/baas/prod_users
-    register: file_details
-      #delegate_to: 127.0.0.1
-    tags: access
+- name: check prod user file exists and not empty
+  stat:
+    path: /root/baas/prod_users
+  register: file_details
+  delegate_to: localhost
+  tags: access
 
 - name: including plays
   include: k8s-workers.yml
