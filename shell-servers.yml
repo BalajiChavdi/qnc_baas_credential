@@ -5,7 +5,6 @@
   gather_facts: no
   vars_files:
     - "group_vars/qn-prod-shells"
-
   tasks:
   - name: including roles
     include_role:

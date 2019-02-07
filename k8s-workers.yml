@@ -3,8 +3,6 @@
 
 - name: Effort to maintain credential of BaaS worker/shell servers
   hosts: baas-workers_grp-balaji
-#  user: "root"
-#  connection: "local"
   gather_facts: "no"
   vars_files:
     - "group_vars/prod-workers"
@@ -13,7 +11,6 @@
         src: /etc/ansible/remote_files/passwd/master.passwd.open_access_ubuntu16
         dest: /root/baas/master.passwd.open_access_ubuntu16
         delegate_to: 127.0.0.1
-      #remote_src: yes
         backup: yes
       tags: access
 
@@ -21,7 +18,6 @@
         src: /usr/lib/python2.7/site-packages/ansible/modules/custom_modules/gen_pass.py
         dest: /root/baas/gen_pass.py
         delegate_to: 127.0.0.1
-      #remote_src: yes
         backup: yes
       tags: access
 
@@ -37,14 +33,31 @@
       delegate_to: 127.0.0.1
       tags: access
 
-#    - debug: var=file_details.size
     - name: including roles
       include_role:
         name: workers
       when: file_details.stat.size != 0
-
+      register: role_output_1
 
     - name: including roles
       include_role:
         name: common_infra
       when: file_details.stat.size != 0
+      register: role_output_2
+
+
+- name: Effort to maintain credential of BaaS worker/shell servers
+  hosts: baas-shell_grp-balaji
+  gather_facts: no
+  vars_files:
+    - "group_vars/qn-prod-shells"
+  tasks:
+  - name: including roles
+    include_role:
+      name: shell-servers
+    when: role_output_1.changed
+
+  - name: including roles
+    include_role:
+      name: common_infra
+    when: role_output_2.changed
