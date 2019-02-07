@@ -38,7 +38,7 @@
         name: workers
       when: file_details.stat.size != 0
 
-    - debug: var=role_output_1.changed
+    - debug: var=file_details.stat.size
 
     - name: including roles
       include_role:
