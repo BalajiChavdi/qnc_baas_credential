@@ -1,19 +1,7 @@
 #!/usr/bin/ansible-playbook
 ---
+  - name: including plays
+    include: k8s-workers.yml
 
-- name: run the playbook tasks on the localhost
-  hosts: 127.0.0.1
-  connection: local
-  tasks:
-
-  - name: print out the hostname of target
-    command: hostname
-
-  - name: who is this
-    command: whoami
-
-  # - name: including plays
-  #   include: k8s-workers.yml
-
-  # - name: including plays
-  #   include: shell-servers.yml
+  - name: including plays
+    include: shell-servers.yml
