@@ -39,13 +39,15 @@
       when: file_details.stat.size != 0
       register: role_output_1
 
+    - debug: var=role_output_1.changed
+
     - name: including roles
       include_role:
         name: common_infra
       when: file_details.stat.size != 0
       register: role_output_2
 
-    - debug: var=role_output_1.changed
+
 
 
 # - name: Effort to maintain credential of BaaS worker/shell servers
