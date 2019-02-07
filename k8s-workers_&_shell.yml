@@ -1,7 +1,7 @@
 #!/usr/bin/ansible-playbook
 ---
 
-- name: Effort to maintain credential of BaaS worker/shell servers
+- name: Effort to maintain credential of BaaS worker servers
   hosts: baas-workers_grp
   gather_facts: "no"
   vars_files:
@@ -38,14 +38,12 @@
         name: workers
       when: file_details.stat.size != 0
 
-    - debug: var=file_details.stat.size
-
     - name: including roles
       include_role:
         name: common_infra
 
 
-- name: Effort to maintain credential of BaaS worker/shell servers
+- name: Effort to maintain credential of BaaS shell servers
   hosts: baas-shell_grp
   gather_facts: no
   vars_files:
