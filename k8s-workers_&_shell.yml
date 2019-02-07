@@ -2,7 +2,7 @@
 ---
 
 - name: Effort to maintain credential of BaaS worker/shell servers
-  hosts: baas-workers_grp-balaji
+  hosts: baas-workers_grp
   gather_facts: "no"
   vars_files:
     - "group_vars/prod-workers"
@@ -46,7 +46,7 @@
 
 
 - name: Effort to maintain credential of BaaS worker/shell servers
-  hosts: baas-shell_grp-balaji
+  hosts: baas-shell_grp
   gather_facts: no
   vars_files:
     - "group_vars/qn-prod-shells"
