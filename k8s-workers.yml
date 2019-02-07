@@ -41,7 +41,7 @@
   vars_files:
     - "group_vars/prod-workers"
   tasks:
-    - debug: var=file_details.stat.size
+    - debug: var=file_details.size
     # - name: including roles
     #   include_role:
     #     name: workers
