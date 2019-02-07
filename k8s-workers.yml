@@ -41,13 +41,14 @@
   vars_files:
     - "group_vars/prod-workers"
   tasks:
-    - name: including roles
-      include_role:
-        name: workers
-      when: file_details.stat.size != 0
+    - debug: var=file_details.stat.size
+    # - name: including roles
+    #   include_role:
+    #     name: workers
+    #    when: file_details.stat.size != 0
 
 
-    - name: including roles
-      include_role:
-        name: common_infra
-      when: file_details.stat.size != 0
+    # - name: including roles
+    #   include_role:
+    #     name: common_infra
+    #     when: file_details.stat.size != 0
