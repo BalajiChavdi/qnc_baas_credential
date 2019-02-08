@@ -1,7 +1,0 @@
-#!/usr/bin/ansible-playbook
----
-  - name: including plays
-    include: k8s-workers.yml
-
-  - name: including plays
-    include: shell-servers.yml
