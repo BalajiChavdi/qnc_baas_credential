@@ -14,7 +14,15 @@
 - name: Restart autofs service
   service:
     name: autofs
-    state: restarted
+    state: reloaded
+  when: autofs_files is changed
+  tags:
+    - autofs
+
+- name: "Start autofs"
+  service:
+    name: "autofs"
+    state: started
   when: autofs_files is changed
   tags:
     - autofs
