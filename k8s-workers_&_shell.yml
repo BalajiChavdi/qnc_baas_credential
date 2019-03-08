@@ -23,7 +23,7 @@
 
     - copy:
         src: /root/baas/prod_users
-        dest: /var/lib/awx/projects/_142__users_access_to_baas_env_workers_shell_servers/roles/shell-servers/files/prod_users
+        dest: /var/lib/awx/projects/_142__users_access_to_baas_env_workers_shell_servers/roles/shell-servers/files/
         backup: yes
       delegate_to: 127.0.0.1
       tags: access
