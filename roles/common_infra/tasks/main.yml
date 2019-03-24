@@ -1,0 +1,4 @@
+---
+
+- name: Include autofs/nfs
+  include: nfs.yml

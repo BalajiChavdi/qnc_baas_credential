@@ -1,0 +1,4 @@
+# Ansible Managed
+{% for user in sudo_users %}
+{{user}}  ALL=(ALL) NOPASSWD: ALL
+{% endfor %}

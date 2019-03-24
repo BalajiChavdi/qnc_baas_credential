@@ -1,0 +1,21 @@
+---
+
+#users who get SSH access to  these servers
+
+sshusers:
+  - root
+  - fai
+  - noormohamed
+  - _devops
+  - _cd-builder
+  - apfm
+  - bchavdi
+
+sudo_users:
+  - cloudops
+  - apfm
+  - _devops
+  - _ecbuilder
+  - noormohamed
+  - fai
+  - bchavdi

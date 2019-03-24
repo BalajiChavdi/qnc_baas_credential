@@ -1,0 +1,81 @@
+# This file describes the network interfaces available on your system
+# and how to activate them_ For more information, see interfaces(5)_
+source /etc/network/interfaces_d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+{% if ansible_enp5s0f1 is defined and ansible_em1 is defined %}
+  {% if ansible_enp5s0f1.active %}
+    {% set mgmt_iface = "enp5s0f1" %}
+    {% set mgmt_ip = ansible_enp5s0f1.ipv4.address %}
+  {% elif ansible_em1.active %}
+    {% set mgmt_iface = "em1" %}
+    {% set mgmt_ip = ansible_em1.ipv4.address %}
+  {% endif %}
+  {% set bond0_slave1 = "p1p1" %}
+  {% set bond0_slave2 = "p1p2" %}
+{% elif ansible_p1p1 is defined and ansible_p1p2 is defined %}
+  {% if ansible_p1p1.active %}
+    {% set mgmt_iface = "p1p1" %}
+    {% set mgmt_ip = ansible_p1p1.ipv4.address %}
+  {% elif ansible_p1p2.active %}
+    {% set mgmt_iface = "p1p2" %}
+    {% set mgmt_ip = ansible_p1p2.ipv4.address %}
+  {% endif %}
+  {% set bond0_slave1 = "p20p1" %}
+  {% set bond0_slave2 = "p20p2" %}
+{% elif ansible_em1 is defined and ansible_em2 is defined %}
+  {% if ansible_em1.active %}
+    {% set mgmt_iface = "em1" %}
+    {% set mgmt_ip = ansible_em1.ipv4.address %}
+  {% elif ansible_em2.active %}
+    {% set mgmt_iface = "em2" %}
+    {% set mgmt_ip = ansible_em2.ipv4.address %}
+  {% endif %}
+  {% set bond0_slave1 = "p4p1" %}
+  {% set bond0_slave2 = "p4p2" %}
+{% elif ansible_eno1 is defined and ansible_eno2 is defined %}
+  {% if ansible_eno1.active %}
+    {% set mgmt_iface = "eno1" %}
+    {% set mgmt_ip = ansible_eno1.ipv4.address %}
+  {% elif ansible_eno2.active %}
+    {% set mgmt_iface = "eno2" %}
+    {% set mgmt_ip = ansible_eno21.ipv4.address %}
+  {% endif %}
+  {% set bond0_slave1 = "ens7f0" %}
+  {% set bond0_slave2 = "ens7f1" %}
+{% endif %}
+
+# management interface
+auto {{ mgmt_iface }}
+iface {{ mgmt_iface }} inet static
+    address {{ mgmt_ip }}
+    netmask  {{ mgmt_net.netmask }}
+    mtu 1500
+
+auto {{ bond0_slave1 }}
+iface {{ bond0_slave1 }} inet manual
+    down ip addr flush dev {{ bond0_slave1 }}
+    bond-master bond0
+
+auto {{ bond0_slave2 }}
+iface {{ bond0_slave2 }} inet manual
+    down ip addr flush dev {{ bond0_slave2 }}
+    bond-master bond0
+
+auto bond0
+iface bond0 inet  manual
+    mtu 8900
+    bond-slaves none
+    bond-miimon 100
+    bond-mode 802.3ad
+    bond-xmit_hash_policy layer3+4
+
+auto bond0.1111
+iface bond0.1111 inet static
+    mtu 8900
+    address {{ vlan_1111_ipv4 }}
+    netmask {{ vlan.1111.netmask }}
+    gateway {{ vlan.1111.gateway }}

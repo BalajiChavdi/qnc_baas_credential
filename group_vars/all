@@ -1,0 +1,26 @@
+ntp_servers:
+  - anyntp.juniper.net
+  - ibjpbng01.jnpr.net
+  - ibjphk01.jnpr.net
+
+dns_servers:
+  - 10.50.36.33
+  - 10.50.36.34
+  - 172.29.131.60
+
+dns_search_domains:
+  - juniper.net
+  - jnpr.net
+
+vlan:
+  1110:
+    netmask: 255.255.252.0
+    gateway: 10.47.228.1
+    mtu: 8900
+  1111:
+    netmask: 255.255.254.0
+    gateway: 10.47.232.1
+    mtu: 8900
+
+mgmt_net:
+  netmask: 255.255.240.0

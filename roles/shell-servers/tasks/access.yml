@@ -1,0 +1,56 @@
+- name: Push new /etc/master.passwd file
+  template:
+    src: templates/shell_base_passwd.j2
+    dest: /etc/master.passwd
+    backup: yes
+  register: new_master_passwd
+  tags: access
+
+- name: Copy over /etc/passwd
+  copy:
+    src: /etc/master.passwd
+    dest: /etc/passwd
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  when: new_master_passwd is changed
+  tags: access
+
+- name: Run pwconv
+  command: pwconv
+  when: new_master_passwd is changed
+  tags: access
+
+- name: Copy over /etc/group file
+  template:
+    src: templates/shell_base_group.j2
+    dest: /etc/group
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  tags: access
+
+- name: Create /etc/sudoers.d/BAAS
+  template:
+    src: templates/managed_sudoers.j2
+    dest: /etc/sudoers.d/BAAS
+    mode: 0440
+    owner: root
+    group: root
+    validate: '/usr/sbin/visudo -cf %s'
+  tags: access
+
+- name: Update /etc/sudoers
+  blockinfile:
+    state: absent
+    path: /etc/sudoers
+    block: |
+      noormohamed   ALL=(ALL:ALL) ALL
+      _devops       ALL=(ALL:ALL) ALL
+      apfm          ALL=(ALL:ALL) ALL
+      _ecbuilder    ALL=(ALL) NOPASSWD:ALL
+    validate: '/usr/sbin/visudo -cf %s'
+  tags: access

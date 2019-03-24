@@ -1,0 +1,28 @@
+# NFS related tasks
+#
+
+- name: Install /etc/auto.master, /etc/auto.homes and /etc/autofs
+  copy:
+    src: files/autofs/
+    dest: /etc
+    force: yes
+    backup: yes
+  register: autofs_files
+  tags:
+    - autofs
+
+- name: Restart autofs service
+  service:
+    name: autofs
+    state: reloaded
+  when: autofs_files is changed
+  tags:
+    - autofs
+
+- name: "Start autofs"
+  service:
+    name: "autofs"
+    state: started
+  when: autofs_files is changed
+  tags:
+    - autofs
