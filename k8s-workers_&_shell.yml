@@ -16,15 +16,18 @@
         state: touch
       delegate_to: 127.0.0.1
 
-    - local_action: copy content="{{ vars[item] }}" dest="/root/baas/baas_users_tmp"
+    - copy:
+        content: "{{ vars[item] }}"
+        dest: /root/baas/baas_users_tmp
+      delegate_to: 127.0.0.1
       with_items: "{{ usernames.strip().replace(' ', '').replace(',', '\n').split('\n') }}"
 
-#     - copy:
-#         src: /etc/ansible/remote_files/passwd/master.passwd.open_access_ubuntu16
-#         dest: /root/baas/master.passwd.open_access_ubuntu16
-#         backup: yes
-#       delegate_to: 127.0.0.1
-#       tags: access
+    # - copy:
+    #     src: /etc/ansible/remote_files/passwd/master.passwd.open_access_ubuntu16
+    #     dest: /root/baas/master.passwd.open_access_ubuntu16
+    #     backup: yes
+    #   delegate_to: 127.0.0.1
+    #   tags: access
 
 #     # - copy:
 #     #     src: /etc/ansible/remote_files/automount/auto_homes_bng
