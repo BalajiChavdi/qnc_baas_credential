@@ -17,8 +17,8 @@
         state: touch
       delegate_to: 127.0.0.1
 
-    - local_action: copy content="{{ usernames }}" dest="/root/baas/baas_users_tmp"
-      #with_items: "{{ usernames.strip().replace(' ', '').replace(',', '\n').split('\n') }}"
+    - local_action: copy content="{{ item }}" dest="/root/baas/baas_users_tmp"
+      with_items: "{{ usernames.strip().replace(' ', '').replace(',', '\n').split('\n') }}"
 
     # - copy:
     #     content: "{{ vars[item] }}"
