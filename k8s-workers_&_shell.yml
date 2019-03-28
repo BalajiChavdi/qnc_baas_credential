@@ -2,8 +2,7 @@
 ---
 
 - name: Effort to maintain credential of BaaS worker servers
-  #hosts: baas-workers_grp
-  hosts: baas-shell_grp
+  hosts: baas-workers_grp
   gather_facts: "no"
   vars_files:
     - "group_vars/prod-workers"
