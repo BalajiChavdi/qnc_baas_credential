@@ -85,3 +85,13 @@
     - name: including roles
       include_role:
         name: common_infra
+
+- name: Effort to maintain credential of BaaS shell servers
+  hosts: baas-verify_grp
+  gather_facts: no
+  tasks:
+
+    - name: Creating prod_users password file
+      command: /usr/bin/python /root/baas/gen_pass.py {{ item }}
+      delegate_to: 127.0.0.1
+      with_items: "{{ usernames.strip().replace(' ', '').replace(',', '\n').split('\n') }}"
