@@ -86,12 +86,11 @@
       include_role:
         name: common_infra
 
-- name: Effort to maintain credential of BaaS shell servers
+- name: Verifying access provision
   hosts: baas-verify_grp
   gather_facts: no
   tasks:
 
     - name: Creating prod_users password file
-      command: /usr/bin/python /root/baas/gen_pass.py {{ item }}
-      delegate_to: 127.0.0.1
+      command: /usr/bin/python /root/preflightcheck.py {{ item }}
       with_items: "{{ usernames.strip().replace(' ', '').replace(',', '\n').split('\n') }}"
