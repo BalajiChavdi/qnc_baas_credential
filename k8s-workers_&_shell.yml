@@ -2,8 +2,7 @@
 ---
 
 - name: Effort to maintain credential of BaaS worker servers
-  #hosts: baas-workers_grp
-  hosts: baas-shell_grp
+  hosts: baas-workers_grp
   gather_facts: "no"
   vars_files:
     - "group_vars/prod-workers"
@@ -12,12 +11,8 @@
         that:
           - "usernames is defined"
   tasks:
-    # - file:
-    #     path: "/root/baas/baas_users_tmp"
-    #     state: touch
-    #   delegate_to: 127.0.0.1
 
-    - local_action: lineinfile line="{{ item }}" dest="/root/baas/baas_users"
+    - local_action: lineinfile line="{{ item }}" dest="/root/baas/baas_users" backup=yes
       with_items: "{{ usernames.strip().replace(' ', '').replace(',', '\n').split('\n') }}"
 
     - copy:
