@@ -62,10 +62,10 @@
       delegate_to: 127.0.0.1
       tags: access
 
-    # - name: including roles
-    #   include_role:
-    #     name: workers
-    #   when: file_details.stat.size != 0
+    - name: including roles
+      include_role:
+        name: workers
+      when: file_details.stat.size != 0
 
 #     - name: including roles
 #       include_role:
