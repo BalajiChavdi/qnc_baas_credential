@@ -17,8 +17,8 @@
         state: touch
       delegate_to: 127.0.0.1
 
-    - local_action: copy content="{{ item }}" dest="/root/baas/baas_users_tmp"
-      with_items: "{{ usernames.strip().replace(' ', '').replace(',', '\n').split('\n') }}"
+    - local_action: copy content="{{ usernames }}" dest="/root/baas/baas_users_tmp"
+      #with_items: "{{ usernames.strip().replace(' ', '').replace(',', '\n').split('\n') }}"
 
     # - copy:
     #     content: "{{ vars[item] }}"
@@ -26,12 +26,12 @@
     #   delegate_to: 127.0.0.1
     #   with_items: "{{ usernames.strip().replace(' ', '').replace(',', '\n').split('\n') }}"
 
-    - copy:
-        src: /etc/ansible/remote_files/passwd/master.passwd.open_access_ubuntu16
-        dest: /root/baas/master.passwd.open_access_ubuntu16
-        backup: yes
-      delegate_to: 127.0.0.1
-      tags: access
+    # - copy:
+    #     src: /etc/ansible/remote_files/passwd/master.passwd.open_access_ubuntu16
+    #     dest: /root/baas/master.passwd.open_access_ubuntu16
+    #     backup: yes
+    #   delegate_to: 127.0.0.1
+    #   tags: access
 
 #     # - copy:
 #     #     src: /etc/ansible/remote_files/automount/auto_homes_bng
@@ -47,29 +47,29 @@
 #     #   delegate_to: 127.0.0.1
 #     #   tags: access
 
-    - copy:
-        src: /usr/lib/python2.7/site-packages/ansible/modules/custom_modules/gen_pass.py
-        dest: /root/baas/gen_pass.py
-        backup: yes
-      delegate_to: 127.0.0.1
-      tags: access
+    # - copy:
+    #     src: /usr/lib/python2.7/site-packages/ansible/modules/custom_modules/gen_pass.py
+    #     dest: /root/baas/gen_pass.py
+    #     backup: yes
+    #   delegate_to: 127.0.0.1
+    #   tags: access
 
-    - name: Creating prod_users password file
-      command: /usr/bin/python /root/baas/gen_pass.py
-      delegate_to: 127.0.0.1
-      tags: access
+    # - name: Creating prod_users password file
+    #   command: /usr/bin/python /root/baas/gen_pass.py
+    #   delegate_to: 127.0.0.1
+    #   tags: access
 
-    - name: check prod user file exists and not empty
-      stat:
-        path: /root/baas/prod_users
-      register: file_details
-      delegate_to: 127.0.0.1
-      tags: access
+    # - name: check prod user file exists and not empty
+    #   stat:
+    #     path: /root/baas/prod_users
+    #   register: file_details
+    #   delegate_to: 127.0.0.1
+    #   tags: access
 
-    - name: including roles
-      include_role:
-        name: workers
-      when: file_details.stat.size != 0
+    # - name: including roles
+    #   include_role:
+    #     name: workers
+    #   when: file_details.stat.size != 0
 
 #     - name: including roles
 #       include_role:
