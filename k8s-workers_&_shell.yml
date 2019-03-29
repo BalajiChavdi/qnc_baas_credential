@@ -97,4 +97,4 @@
       register: access_status
 
     - debug:
-        var: "{{ access_status | map(attribute='stdout') | list }}"
+        var: "{{ access_status.stdout_lines }}"
