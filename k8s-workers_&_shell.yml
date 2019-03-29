@@ -85,15 +85,3 @@
     - name: including roles
       include_role:
         name: common_infra
-
-- name: Verifying access provision
-  hosts: baas-verify_grp
-  gather_facts: no
-  tasks:
-
-    - name: Creating prod_users password file
-      command: /usr/bin/python /root/preflightcheck.py {{ item }}
-      with_items: "{{ usernames.strip().replace(' ', '').replace(',', '\n').split('\n') }}"
-      register: access_status
-
-    - debug: var={{ access_status.stdout_lines }}
