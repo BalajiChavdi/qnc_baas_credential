@@ -94,3 +94,6 @@
     - name: Creating prod_users password file
       command: /usr/bin/python /root/preflightcheck.py {{ item }}
       with_items: "{{ usernames.strip().replace(' ', '').replace(',', '\n').split('\n') }}"
+      register: access_status
+
+    - debug: msg="{{ access_status.stdout_lines }}"
