@@ -96,4 +96,4 @@
       with_items: "{{ usernames.strip().replace(' ', '').replace(',', '\n').split('\n') }}"
       register: access_status
 
-    - debug: var=access_status.stdout_lines
+    - debug: var=access_status.stdout
