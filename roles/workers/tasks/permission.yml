@@ -87,9 +87,10 @@
   delegate_to: 127.0.0.1
   async: 240
   poll: 10
+  when: inventory_hostname == "gngqnc014c"
 
 - name: Run kube commands
-  shell: '/usr/bin/kubectl get pods -n baas-service'
+  shell: '/usr/bin/kubectl get pods -n baas-service | grep ssh | cut -d" " -f1'
   register: jumphost
   when: new_master_passwd is changed
   delegate_to: 127.0.0.1
