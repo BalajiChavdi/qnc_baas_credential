@@ -82,12 +82,18 @@
   when: new_master_passwd is changed
   delegate_to: 127.0.0.1
 
+- name: check kube file exists
+  stat:
+    path: /root/.kube
+  register: kube_details
+  delegate_to: 127.0.0.1
+
 - name: Run kube commands
   shell: "scp -r root@gngqnc014c:/root/.kube /root"
   delegate_to: 127.0.0.1
   async: 240
   poll: 10
-  when: inventory_hostname == "gngqnc014c"
+  when: kube_details_details.stat.isdir is defined and kube_details_details.stat.isdir and inventory_hostname == "gngqnc014c"
 
 - name: Run kube commands
   shell: '/usr/bin/kubectl get pods -n baas-service | grep ssh | cut -d" " -f1'
