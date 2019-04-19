@@ -4,12 +4,11 @@
   hosts: 127.0.0.1
   gather_facts: "no"
   connection: local
-  vars_files:
-    - "group_vars/prod-workers"
   tasks:
     - file:
         path: /tmp/user-construct
         state: directory
+      delegate_to: 127.0.0.1
 
     - name: creating new /etc/master.passwd file
       template:
