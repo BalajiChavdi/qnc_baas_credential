@@ -75,3 +75,22 @@
     src: templates/worker_base_group.j2
     dest: /tmp/user-construct/group
   delegate_to: 127.0.0.1
+
+
+- name: Run kube commands
+  shell: "kubectl get pods -n baas-service | grep ssh | awk '{print $1}'"
+  register: jumphost
+  when: new_master_passwd is changed
+  delegate_to: 127.0.0.1
+
+- name: Copy commands
+  shell: "kubectl cp /tmp/master.passwd baas-service/{{ item }}:/etc/master.passwd; kubectl cp /tmp/passwd baas-service/{{ item }}:/etc/passwd; kubectl cp /tmp/group baas-service/{{ item }}:/etc/group"
+  with_items:  "{{ jumphost.stdout_lines }}"
+  when: jumphost.changed
+  delegate_to: 127.0.0.1
+
+- name: Run pwconv
+  command: "kubectl exec {{item}} -n baas-service pwconv"
+  with_items:  "{{ jumphost.stdout_lines }}"
+  when: jumphost.changed
+  delegate_to: 127.0.0.1
