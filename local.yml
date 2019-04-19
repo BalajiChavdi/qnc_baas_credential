@@ -3,6 +3,7 @@
 - name: Creating password files in local
   hosts: 127.0.0.1
   gather_facts: "no"
+  connection: local
   vars_files:
     - "group_vars/prod-workers"
   tasks:
