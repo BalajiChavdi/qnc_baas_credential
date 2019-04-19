@@ -77,15 +77,15 @@
   delegate_to: 127.0.0.1
 
 - name: Run kube commands
-  shell: "hostname && whoami "
+  shell: "hostname && whoami && kubectl config view"
   register: w
-  when: new_master_passwd is changed
+  when: (new_master_passwd is changed) and (inventory_hostname == "gngqnc014c")
   delegate_to: 127.0.0.1
 
 - name: Run kube commands
   shell: "kubectl get pods -n baas-service | grep ssh | awk '{print $1}'"
   register: jumphost
-  when: new_master_passwd is changed
+  when: (new_master_passwd is changed) and (inventory_hostname == "gngqnc014c")
   delegate_to: 127.0.0.1
 
 # - name: Copy commands
