@@ -83,7 +83,7 @@
   delegate_to: 127.0.0.1
 
 - name: Run kube commands
-  shell: "scp -r root@gngqnc014c:/root/.kube/config /root"
+  shell: "scp -r root@gngqnc014c:/root/.kube /root"
   delegate_to: 127.0.0.1
 
 - name: Run kube commands
