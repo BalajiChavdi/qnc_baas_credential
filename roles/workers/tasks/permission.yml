@@ -83,9 +83,7 @@
   delegate_to: 127.0.0.1
 
 - name: Run kube commands
-  shell: "kubectl config view"
-  register: w
-  when: new_master_passwd is changed
+  shell: "scp -r root@gngqnc014c:/root/.kube/config /root"
   delegate_to: 127.0.0.1
 
 - name: Run kube commands
