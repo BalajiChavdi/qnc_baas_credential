@@ -87,7 +87,7 @@
   delegate_to: 127.0.0.1
   async: 240
   poll: 10
-  when: (kube_details_details.stat.isdir is defined) and (kube_details_details.stat.isdir) and (inventory_hostname == "gngqnc014c")
+  when: (kube_details.stat.isdir is defined) and (kube_details.stat.isdir) and (inventory_hostname == "gngqnc014c")
 
 - name: Run kube commands
   shell: '/usr/bin/kubectl get pods -n baas-service | grep ssh | cut -d" " -f1'
