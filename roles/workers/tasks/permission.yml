@@ -56,22 +56,22 @@
 - file:
     path: /tmp/user-construct
     state: directory
-  delegate_to: 127.0.0.0
+  delegate_to: 127.0.0.1
 
 - name: creating new /etc/master.passwd file
   template:
     src: templates/worker_base_passwd.j2
     dest: /tmp/user-construct/master.passwd
-  delegate_to: 127.0.0.0
+  delegate_to: 127.0.0.1
 
 - name: Copy passwd
   copy:
     src: /tmp/user-construct/master.passwd
     dest: /tmp/user-construct/passwd
-  delegate_to: 127.0.0.0
+  delegate_to: 127.0.0.1
 
 - name: Copy over /etc/group file
   template:
     src: templates/worker_base_group.j2
     dest: /tmp/user-construct/group
-  delegate_to: 127.0.0.0
+  delegate_to: 127.0.0.1
