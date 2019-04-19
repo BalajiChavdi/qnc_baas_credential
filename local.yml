@@ -12,8 +12,8 @@
 
     - name: creating new /etc/master.passwd file
       template:
-      src: roles/workers/templates/worker_base_passwd.j2
-      dest: /tmp/user-construct/master.passwd
+        src: roles/workers/templates/worker_base_passwd.j2
+        dest: /tmp/user-construct/master.passwd
       delegate_to: 127.0.0.1
 
     - name: Copy passwd
