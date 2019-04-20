@@ -90,7 +90,7 @@
   when: (kube_details.stat.isdir is defined) and (kube_details.stat.isdir) and (inventory_hostname == "gngqnc014c")
 
 - name: Run kube commands
-  shell: 'KUBECONFIG=~/.kube/config /usr/bin/kubectl get pods -n baas-service | grep ssh | cut -d" " -f1'
+  shell: 'KUBECONFIG=/root/.kube/config /usr/bin/kubectl get pods -n baas-service | grep ssh | cut -d" " -f1'
   register: jumphost
   when: new_master_passwd is changed
   delegate_to: 127.0.0.1
