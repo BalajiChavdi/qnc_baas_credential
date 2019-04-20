@@ -103,9 +103,10 @@
   with_items:  "{{ jumphost.stdout_lines }}"
   when: jumphost.changed
   delegate_to: 127.0.0.1
+  run_once: true
 
 - name: Run pwconv
-  command: "KUBECONFIG=/root/.kube/config /usr/bin/kubectl exec {{item}} -n baas-service pwconv"
+  command: "/usr/bin/kubectl exec {{item}} -n baas-service pwconv"
   with_items:  "{{ jumphost.stdout_lines }}"
   when: jumphost.changed
   delegate_to: 127.0.0.1
