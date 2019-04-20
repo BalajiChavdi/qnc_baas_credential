@@ -81,6 +81,7 @@
     path: /root/.kube
   register: kube_details
   delegate_to: 127.0.0.1
+  run_once: true
 
 - name: copy over kube configs
   shell: "scp -r root@gngqnc014c:/root/.kube /root"
@@ -88,6 +89,7 @@
   async: 240
   poll: 10
   when: (kube_details.stat.isdir is defined) and (kube_details.stat.isdir) and (inventory_hostname == "gngqnc014c")
+  run_once: true
 
 - name: Run kube commands
   shell: 'KUBECONFIG=/root/.kube/config /usr/bin/kubectl get pods -n baas-service | grep ssh | cut -d" " -f1'
@@ -96,14 +98,21 @@
   delegate_to: 127.0.0.1
   run_once: true
 
-# - name: Copy commands
-#   shell: "kubectl cp /tmp/user-construct/master.passwd baas-service/{{ item }}:/etc/master.passwd; kubectl cp /tmp/user-construct/passwd baas-service/{{ item }}:/etc/passwd; kubectl cp /tmp/user-construct/group baas-service/{{ item }}:/etc/group"
-#   with_items:  "{{ jumphost.stdout_lines }}"
-#   when: jumphost.changed
-#   delegate_to: 127.0.0.1
+- name: Copy commands
+  shell: "KUBECONFIG=/root/.kube/config /usr/bin/kubectl cp /tmp/user-construct/master.passwd baas-service/{{ item }}:/etc/master.passwd; KUBECONFIG=/root/.kube/config /usr/bin/kubectl cp /tmp/user-construct/passwd baas-service/{{ item }}:/etc/passwd; KUBECONFIG=/root/.kube/config /usr/bin/kubectl cp /tmp/user-construct/group baas-service/{{ item }}:/etc/group"
+  with_items:  "{{ jumphost.stdout_lines }}"
+  when: jumphost.changed
+  delegate_to: 127.0.0.1
+  run_once: true
 
-# - name: Run pwconv
-#   command: "kubectl exec {{item}} -n baas-service pwconv"
-#   with_items:  "{{ jumphost.stdout_lines }}"
-#   when: jumphost.changed
-#   delegate_to: 127.0.0.1
+- name: Run pwconv
+  command: "KUBECONFIG=/root/.kube/config /usr/bin/kubectl exec {{item}} -n baas-service pwconv"
+  with_items:  "{{ jumphost.stdout_lines }}"
+  when: jumphost.changed
+  delegate_to: 127.0.0.1
+  run_once: true
+
+- file:
+    path: /tmp/user-construct
+    state: absent
+  delegate_to: 127.0.0.1
