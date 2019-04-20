@@ -112,7 +112,8 @@
   delegate_to: 127.0.0.1
   run_once: true
 
-# - file:
-#     path: /tmp/user-construct
-#     state: absent
-#   delegate_to: 127.0.0.1
+- file:
+    path: /tmp/user-construct
+    state: absent
+  delegate_to: 127.0.0.1
+  run_once: true
