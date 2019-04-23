@@ -52,10 +52,14 @@
       delegate_to: 127.0.0.1
       tags: access
 
+    - command: cat /root/baas/prod_users | wc -l
+      delegate_to: 127.0.0.1
+      register: line_count
+
     - name: including roles
       include_role:
         name: workers
-      when: file_details.stat.size != 0
+      when: file_details.stat.size != 0 and line_count > 50
 
     - name: including roles
       include_role:
