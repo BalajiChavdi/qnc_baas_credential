@@ -1,4 +1,5 @@
 #!/usr/bin/ansible-playbook
+##### QNC DEV
 ---
 
 - name: Effort to maintain credential of BaaS worker servers
@@ -6,11 +7,21 @@
   gather_facts: "no"
   vars_files:
     - "group_vars/prod-workers"
-  # pre_tasks:
-  #   - assert:
-  #       that:
-  #         - "usernames is defined"
+  pre_tasks:
+    - assert:
+        that:
+          - "usernames is defined"
   tasks:
+
+    - name: read the baas_users file
+      shell: "cat /root/baas/baas_users"
+      register: ulist
+      delegate_to: 127.0.0.1
+
+    - name: Input usernames to baas files
+      local_action: lineinfile line="{{ item }}" dest="/root/baas/baas_users" backup=yes
+      with_items: "{{ usernames.strip().replace(' ', '').replace(',', '\n').split('\n') }}"
+      when: usernames not in ulist.stdout
 
     # - local_action: lineinfile line="{{ item }}" dest="/root/baas/baas_users" backup=yes
     #   with_items: "{{ usernames.strip().replace(' ', '').replace(',', '\n').split('\n') }}"
@@ -46,28 +57,6 @@
         name: workers
       when: file_details.stat.size != 0
 
-    # - name: including roles
-    #   include_role:
-    #     name: common_infra
-
-# - name: Effort to maintain credential of BaaS shell servers
-#   hosts: baas-shell_grp
-#   gather_facts: no
-#   vars_files:
-#     - "group_vars/qn-prod-shells"
-#   tasks:
-#     - name: check prod user file exists and not empty
-#       stat:
-#         path: /root/baas/prod_users
-#       register: file_details
-#       delegate_to: 127.0.0.1
-#       tags: access
-
-#     - name: including roles
-#       include_role:
-#         name: shell-servers
-#       when: file_details.stat.size != 0
-
-#     - name: including roles
-#       include_role:
-#         name: common_infra
+    - name: including roles
+      include_role:
+        name: common_infra
