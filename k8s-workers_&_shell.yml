@@ -48,6 +48,20 @@
       tags: access
 
     - copy:
+        src: /etc/ansible/remote_files/automount/auto_vols_qnc
+        dest: /var/lib/awx/projects/_56__users_access_to_baas_env_workers_shell_servers/roles/common_infra/files/autofs/auto_vols_qnc
+        backup: yes
+      delegate_to: 127.0.0.1
+      tags: access
+
+    - copy:
+        src: /etc/ansible/remote_files/automount/auto_vols_qnc
+        dest: /var/lib/awx/projects/_56__users_access_to_baas_env_workers_shell_servers/roles/common_infra/files/autofs/auto.vols
+        backup: yes
+      delegate_to: 127.0.0.1
+      tags: access
+
+    - copy:
         src: /usr/lib/python2.7/site-packages/ansible/modules/custom_modules/gen_pass.py
         dest: /root/baas/gen_pass.py
         backup: yes
