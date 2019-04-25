@@ -87,7 +87,7 @@
     - name: including roles
       include_role:
         name: workers
-      when: file_details.stat.size != 0 and line_count > 180
+      when: file_details.stat.size != 0 and line_count | int > 155
 
     - name: including roles
       include_role:
